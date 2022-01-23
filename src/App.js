@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import AddNewGoals from './components/NewGoals/AddNewGoals';
+import GoalsList from './components/GoalsList/GoalsList';
 
-function App() {
+const DEFAULT_GOALS = [
+  {id: Math.random().toString(), title: 'Wake up morning at 6.00 am', isCompleted : false},
+  {id: Math.random().toString(), title: 'Do breakfast bt 8.00 am', isCompleted : false},
+];
+
+
+
+const App = () => {
+  const [goals, setGoals] = useState(DEFAULT_GOALS);
+
+  const onGettingFormDataHandler = (data) => {
+    setGoals((prevData) => {
+      return [data, ...prevData];
+    });
+    
+  }
+  console.log(goals);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <AddNewGoals onGettingFormData={onGettingFormDataHandler} />
+      <GoalsList goalsList={goals} /> 
+    </React.Fragment>
   );
 }
-
 export default App;
