@@ -1,19 +1,22 @@
 import React,{ useState } from 'react';
+import styles from './GoalItem.module.css';
 
 const GoalItem = (props) => {
 
     const [isComplete,setIsComplete] = useState(false);
 
-    const itemClickHandler = (e) => {
+    const deleteHandler = (e) => {
+        e.preventDefault();
+        props.onDelete(props.id);
         setIsComplete(true);
     }
 
     return (
-        <li className={isComplete && 'completed' }>
+        <li className={`${styles['goal-item']} ${isComplete && 'completed'}`} >
             <div className="item-wrapper">
                 <span>{props.title}</span>
             </div>
-            <button onClick={itemClickHandler} className="btn btn-remove">Completed</button>
+            <button onClick={deleteHandler} className="btn btn-remove">Completed ?</button>
         </li>
     )
 }
